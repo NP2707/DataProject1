@@ -1,0 +1,652 @@
+{
+  "experiment_id": "20260421T183438Z",
+  "seed": 42,
+  "dataset_hash": "feb2c63e38d62f377fb58c742cc7d2a9b2e242c6e8ee012e4182cd4d57595cba",
+  "package_versions": {
+    "python": "3.13.3",
+    "numpy": "2.4.2",
+    "pandas": "3.0.1",
+    "scikit_learn": "1.8.0",
+    "optuna": "4.8.0",
+    "xgboost": "3.2.0",
+    "lightgbm": "4.6.0",
+    "catboost": "1.2.10"
+  },
+  "timestamps": {
+    "started_at_utc": "2026-04-21T18:33:22.307959+00:00",
+    "finished_at_utc": "2026-04-21T18:34:38.769758+00:00"
+  },
+  "baseline": {
+    "name": "dummy_baseline",
+    "strategy": "most_frequent",
+    "allocated_trials": 0,
+    "phase1_validation": {
+      "accuracy": 0.5875,
+      "macro_f1": 0.24671916010498687,
+      "balanced_accuracy": 0.3333333333333333,
+      "per_class_recall": {
+        "Low": 1.0,
+        "Medium": 0.0,
+        "High": 0.0
+      }
+    },
+    "holdout": {
+      "accuracy": 0.587,
+      "macro_f1": 0.24658685150178536,
+      "balanced_accuracy": 0.3333333333333333,
+      "per_class_recall": {
+        "Low": 1.0,
+        "Medium": 0.0,
+        "High": 0.0
+      }
+    }
+  },
+  "phase1": {
+    "sample_size": 4000,
+    "ranked_families": [
+      {
+        "name": "lightgbm",
+        "best_config": {
+          "n_estimators": 197,
+          "learning_rate": 0.19496378540231826,
+          "num_leaves": 35,
+          "max_depth": -1,
+          "min_child_samples": 35,
+          "subsample": 0.8866137124065707,
+          "colsample_bytree": 0.8634749788971232
+        },
+        "best_score": 0.9458378953558378,
+        "top_5_configs": [
+          {
+            "config": {
+              "n_estimators": 197,
+              "learning_rate": 0.19496378540231826,
+              "num_leaves": 35,
+              "max_depth": -1,
+              "min_child_samples": 35,
+              "subsample": 0.8866137124065707,
+              "colsample_bytree": 0.8634749788971232
+            },
+            "score": 0.9458378953558378
+          },
+          {
+            "config": {
+              "n_estimators": 259,
+              "learning_rate": 0.08316430469292926,
+              "num_leaves": 29,
+              "max_depth": 6,
+              "min_child_samples": 77,
+              "subsample": 0.9043812017785181,
+              "colsample_bytree": 0.8411978617842769
+            },
+            "score": 0.9316331655398891
+          }
+        ],
+        "score_distribution": [
+          0.9316331655398891,
+          0.9458378953558378
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9316331655398891
+          },
+          {
+            "trial": 2,
+            "best_score": 0.9458378953558378
+          }
+        ],
+        "train_val_gap": 0.05416210464416216,
+        "overfit_flag": true,
+        "trial_durations": [
+          2.098360000003595,
+          1.7736931999970693
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 2
+      },
+      {
+        "name": "hist_gbm",
+        "best_config": {
+          "learning_rate": 0.039464057786808365,
+          "max_depth": 10,
+          "max_leaf_nodes": 45,
+          "min_samples_leaf": 31,
+          "l2_regularization": 8.062376879493268,
+          "max_iter": 248
+        },
+        "best_score": 0.9419331998721264,
+        "top_5_configs": [
+          {
+            "config": {
+              "learning_rate": 0.039464057786808365,
+              "max_depth": 10,
+              "max_leaf_nodes": 45,
+              "min_samples_leaf": 31,
+              "l2_regularization": 8.062376879493268,
+              "max_iter": 248
+            },
+            "score": 0.9419331998721264
+          },
+          {
+            "config": {
+              "learning_rate": 0.024795567564968906,
+              "max_depth": null,
+              "max_leaf_nodes": 39,
+              "min_samples_leaf": 42,
+              "l2_regularization": 0.1846654105293826,
+              "max_iter": 320
+            },
+            "score": 0.9412345142779158
+          }
+        ],
+        "score_distribution": [
+          0.9412345142779158,
+          0.9419331998721264
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9412345142779158
+          },
+          {
+            "trial": 2,
+            "best_score": 0.9419331998721264
+          }
+        ],
+        "train_val_gap": 0.05613878320634558,
+        "overfit_flag": true,
+        "trial_durations": [
+          7.681430199998431,
+          10.66880530002527
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 2
+      },
+      {
+        "name": "catboost",
+        "best_config": {
+          "iterations": 228,
+          "learning_rate": 0.023729898828739743,
+          "depth": 7,
+          "l2_leaf_reg": 6.130177344537025,
+          "random_strength": 0.6753434380085233,
+          "bagging_temperature": 3.472610663313576
+        },
+        "best_score": 0.9403830316786532,
+        "top_5_configs": [
+          {
+            "config": {
+              "iterations": 228,
+              "learning_rate": 0.023729898828739743,
+              "depth": 7,
+              "l2_leaf_reg": 6.130177344537025,
+              "random_strength": 0.6753434380085233,
+              "bagging_temperature": 3.472610663313576
+            },
+            "score": 0.9403830316786532
+          },
+          {
+            "config": {
+              "iterations": 223,
+              "learning_rate": 0.0859035996499726,
+              "depth": 4,
+              "l2_leaf_reg": 7.221306882435729,
+              "random_strength": 6.5077855630508274,
+              "bagging_temperature": 4.707080589883839
+            },
+            "score": 0.9024021619738686
+          }
+        ],
+        "score_distribution": [
+          0.9024021619738686,
+          0.9403830316786532
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9024021619738686
+          },
+          {
+            "trial": 2,
+            "best_score": 0.9403830316786532
+          }
+        ],
+        "train_val_gap": 0.027675385442030187,
+        "overfit_flag": false,
+        "trial_durations": [
+          1.580742200021632,
+          4.506590600009076
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 2
+      },
+      {
+        "name": "random_forest",
+        "best_config": {
+          "n_estimators": 327,
+          "max_depth": 18,
+          "min_samples_split": 2,
+          "min_samples_leaf": 1,
+          "max_features": null
+        },
+        "best_score": 0.9360130835740592,
+        "top_5_configs": [
+          {
+            "config": {
+              "n_estimators": 327,
+              "max_depth": 18,
+              "min_samples_split": 2,
+              "min_samples_leaf": 1,
+              "max_features": null
+            },
+            "score": 0.9360130835740592
+          },
+          {
+            "config": {
+              "n_estimators": 135,
+              "max_depth": 10,
+              "min_samples_split": 8,
+              "min_samples_leaf": 3,
+              "max_features": "log2"
+            },
+            "score": 0.9102937058324545
+          }
+        ],
+        "score_distribution": [
+          0.9360130835740592,
+          0.9102937058324545
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9360130835740592
+          },
+          {
+            "trial": 2,
+            "best_score": 0.9360130835740592
+          }
+        ],
+        "train_val_gap": 0.06398691642594079,
+        "overfit_flag": true,
+        "trial_durations": [
+          11.103716000012355,
+          1.6677094000042416
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 2
+      },
+      {
+        "name": "xgboost",
+        "best_config": {
+          "n_estimators": 199,
+          "learning_rate": 0.020093694508867378,
+          "max_depth": 7,
+          "min_child_weight": 1.562527291024928,
+          "subsample": 0.8609030214640562,
+          "colsample_bytree": 0.908295611811849,
+          "reg_lambda": 0.6229005840335066
+        },
+        "best_score": 0.9295624056707364,
+        "top_5_configs": [
+          {
+            "config": {
+              "n_estimators": 199,
+              "learning_rate": 0.020093694508867378,
+              "max_depth": 7,
+              "min_child_weight": 1.562527291024928,
+              "subsample": 0.8609030214640562,
+              "colsample_bytree": 0.908295611811849,
+              "reg_lambda": 0.6229005840335066
+            },
+            "score": 0.9295624056707364
+          },
+          {
+            "config": {
+              "n_estimators": 211,
+              "learning_rate": 0.09967956833309956,
+              "max_depth": 6,
+              "min_child_weight": 7.637563640177925,
+              "subsample": 0.8290781510663652,
+              "colsample_bytree": 0.6696708717652401,
+              "reg_lambda": 0.018905203501936158
+            },
+            "score": 0.9051595838438172
+          }
+        ],
+        "score_distribution": [
+          0.9295624056707364,
+          0.9051595838438172
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9295624056707364
+          },
+          {
+            "trial": 2,
+            "best_score": 0.9295624056707364
+          }
+        ],
+        "train_val_gap": 0.060537586844725655,
+        "overfit_flag": true,
+        "trial_durations": [
+          3.3263321999984328,
+          2.5337266999995336
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 2
+      },
+      {
+        "name": "linear",
+        "best_config": {
+          "C": 13.695481354579067,
+          "solver": "saga",
+          "penalty": "l2",
+          "max_iter": 520
+        },
+        "best_score": 0.6020951603125367,
+        "top_5_configs": [
+          {
+            "config": {
+              "C": 13.695481354579067,
+              "solver": "saga",
+              "penalty": "l2",
+              "max_iter": 520
+            },
+            "score": 0.6020951603125367
+          },
+          {
+            "config": {
+              "C": 0.3185075364289309,
+              "solver": "saga",
+              "penalty": "l2",
+              "max_iter": 366
+            },
+            "score": 0.5516840147572415
+          }
+        ],
+        "score_distribution": [
+          0.6020951603125367,
+          0.5516840147572415
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.6020951603125367
+          },
+          {
+            "trial": 2,
+            "best_score": 0.6020951603125367
+          }
+        ],
+        "train_val_gap": 0.018180854305120286,
+        "overfit_flag": false,
+        "trial_durations": [
+          3.033283400000073,
+          2.1195667999854777
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 2
+      }
+    ],
+    "shortlist": [
+      "lightgbm",
+      "hist_gbm",
+      "catboost"
+    ]
+  },
+  "phase2": {
+    "ranked_families": [
+      {
+        "name": "catboost",
+        "best_config": {
+          "iterations": 224,
+          "learning_rate": 0.04957346346230206,
+          "depth": 7,
+          "l2_leaf_reg": 8.893915161960482,
+          "random_strength": 0.055399918023527346,
+          "bagging_temperature": 3.5705374020316154
+        },
+        "best_score": 0.9485402274092403,
+        "top_5_configs": [
+          {
+            "config": {
+              "iterations": 224,
+              "learning_rate": 0.04957346346230206,
+              "depth": 7,
+              "l2_leaf_reg": 8.893915161960482,
+              "random_strength": 0.055399918023527346,
+              "bagging_temperature": 3.5705374020316154
+            },
+            "score": 0.9485402274092403
+          }
+        ],
+        "score_distribution": [
+          0.9485402274092403
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9485402274092403
+          }
+        ],
+        "train_val_gap": 0.026734328413187458,
+        "overfit_flag": false,
+        "trial_durations": [
+          4.48093940000399
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 1
+      },
+      {
+        "name": "hist_gbm",
+        "best_config": {
+          "learning_rate": 0.08969344887167614,
+          "max_depth": 10,
+          "max_leaf_nodes": 18,
+          "min_samples_leaf": 20,
+          "l2_regularization": 0.6742257699053564,
+          "max_iter": 157
+        },
+        "best_score": 0.9482837706013258,
+        "top_5_configs": [
+          {
+            "config": {
+              "learning_rate": 0.08969344887167614,
+              "max_depth": 10,
+              "max_leaf_nodes": 18,
+              "min_samples_leaf": 20,
+              "l2_regularization": 0.6742257699053564,
+              "max_iter": 157
+            },
+            "score": 0.9482837706013258
+          }
+        ],
+        "score_distribution": [
+          0.9482837706013258
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9482837706013258
+          }
+        ],
+        "train_val_gap": 0.05171622939867415,
+        "overfit_flag": true,
+        "trial_durations": [
+          3.702463900001021
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 1
+      },
+      {
+        "name": "lightgbm",
+        "best_config": {
+          "n_estimators": 227,
+          "learning_rate": 0.058094323891563854,
+          "num_leaves": 54,
+          "max_depth": 6,
+          "min_child_samples": 51,
+          "subsample": 0.9840246978845015,
+          "colsample_bytree": 0.8304457993368797
+        },
+        "best_score": 0.9316331655398891,
+        "top_5_configs": [
+          {
+            "config": {
+              "n_estimators": 227,
+              "learning_rate": 0.058094323891563854,
+              "num_leaves": 54,
+              "max_depth": 6,
+              "min_child_samples": 51,
+              "subsample": 0.9840246978845015,
+              "colsample_bytree": 0.8304457993368797
+            },
+            "score": 0.9316331655398891
+          }
+        ],
+        "score_distribution": [
+          0.9316331655398891
+        ],
+        "convergence_history": [
+          {
+            "trial": 1,
+            "best_score": 0.9316331655398891
+          }
+        ],
+        "train_val_gap": 0.06836683446011094,
+        "overfit_flag": true,
+        "trial_durations": [
+          2.0971108000085223
+        ],
+        "failed_trial_count": 0,
+        "quarantine_status": {
+          "is_quarantined": false,
+          "quarantine_reason": null,
+          "last_exception": null,
+          "unavailable_reason": null
+        },
+        "selected_count": 1
+      }
+    ]
+  },
+  "holdout": {
+    "ranked_families": [
+      {
+        "name": "catboost",
+        "best_config": {
+          "iterations": 224,
+          "learning_rate": 0.04957346346230206,
+          "depth": 7,
+          "l2_leaf_reg": 8.893915161960482,
+          "random_strength": 0.055399918023527346,
+          "bagging_temperature": 3.5705374020316154
+        },
+        "metrics": {
+          "accuracy": 0.976,
+          "macro_f1": 0.9215619694397282,
+          "balanced_accuracy": 0.8998186869647015,
+          "per_class_recall": {
+            "Low": 0.9931856899488927,
+            "Medium": 0.9709762532981531,
+            "High": 0.7352941176470589
+          }
+        }
+      },
+      {
+        "name": "hist_gbm",
+        "best_config": {
+          "learning_rate": 0.08969344887167614,
+          "max_depth": 10,
+          "max_leaf_nodes": 18,
+          "min_samples_leaf": 20,
+          "l2_regularization": 0.6742257699053564,
+          "max_iter": 157
+        },
+        "metrics": {
+          "accuracy": 0.975,
+          "macro_f1": 0.9168650669495423,
+          "balanced_accuracy": 0.899250827793776,
+          "per_class_recall": {
+            "Low": 0.9914821124361158,
+            "Medium": 0.9709762532981531,
+            "High": 0.7352941176470589
+          }
+        }
+      },
+      {
+        "name": "lightgbm",
+        "best_config": {
+          "n_estimators": 227,
+          "learning_rate": 0.058094323891563854,
+          "num_leaves": 54,
+          "max_depth": 6,
+          "min_child_samples": 51,
+          "subsample": 0.9840246978845015,
+          "colsample_bytree": 0.8304457993368797
+        },
+        "metrics": {
+          "accuracy": 0.976,
+          "macro_f1": 0.91534779617233,
+          "balanced_accuracy": 0.8908942728718876,
+          "per_class_recall": {
+            "Low": 0.9931856899488927,
+            "Medium": 0.9736147757255936,
+            "High": 0.7058823529411765
+          }
+        }
+      }
+    ]
+  },
+  "stop_reason": "max_total_trials",
+  "total_trials_run": 15
+}
