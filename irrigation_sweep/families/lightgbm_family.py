@@ -48,6 +48,7 @@ class LightGBMFamily(BaseFamily):
                 "eval_metric": "multi_logloss",
             },
             encode_target=True,
+            use_feature_frame=True,
         )
 
     def fit(self, model, X_train, y_train, X_eval=None, y_eval=None):

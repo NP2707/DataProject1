@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import Any
 
 from sklearn.linear_model import LogisticRegression
@@ -14,15 +15,18 @@ class LinearFamily(BaseFamily):
 
     def build(self, config: dict[str, Any]) -> Pipeline:
         params = self.merge_with_defaults(settings.LINEAR_DEFAULTS, config)
-        estimator = LogisticRegression(
-            C=params["C"],
-            solver=params["solver"],
-            penalty=params["penalty"],
-            max_iter=params["max_iter"],
-            class_weight=params["class_weight"],
-            n_jobs=-1,
-            random_state=settings.SEED,
-        )
+        penalty = params.get("penalty", "l2")
+        estimator_kwargs = {
+            "C": params["C"],
+            "solver": params["solver"],
+            "max_iter": params["max_iter"],
+            "class_weight": params["class_weight"],
+            "random_state": settings.SEED,
+        }
+        if penalty is None:
+            estimator_kwargs["C"] = math.inf
+
+        estimator = LogisticRegression(**estimator_kwargs)
         return Pipeline(
             steps=[
                 ("preprocess", self.build_one_hot_preprocessor(scale_numeric=True)),

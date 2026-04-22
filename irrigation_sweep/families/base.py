@@ -21,11 +21,26 @@ class PreprocessedEstimator(BaseEstimator, ClassifierMixin):
         estimator: Any,
         eval_set_builder: Callable[[np.ndarray, np.ndarray], dict[str, Any]] | None = None,
         encode_target: bool = False,
+        use_feature_frame: bool = False,
     ) -> None:
         self.preprocessor = preprocessor
         self.estimator = estimator
         self.eval_set_builder = eval_set_builder
         self.encode_target = encode_target
+        self.use_feature_frame = use_feature_frame
+
+    def _flatten_target(self, y: pd.Series | np.ndarray | None) -> np.ndarray | None:
+        if y is None:
+            return None
+        return np.asarray(y).reshape(-1)
+
+    def _wrap_features(self, transformed: np.ndarray) -> pd.DataFrame | np.ndarray:
+        if not self.use_feature_frame:
+            return transformed
+        return pd.DataFrame(
+            transformed,
+            columns=self.feature_names_,
+        )
 
     def fit(
         self,
@@ -35,20 +50,23 @@ class PreprocessedEstimator(BaseEstimator, ClassifierMixin):
         y_eval: pd.Series | None = None,
     ) -> "PreprocessedEstimator":
         X_train = self.preprocessor.fit_transform(X, y)
-        y_train = y
-        y_eval_transformed = y_eval
+        self.feature_names_ = list(self.preprocessor.get_feature_names_out())
+        X_train = self._wrap_features(X_train)
+        y_train = self._flatten_target(y)
+        y_eval_transformed = self._flatten_target(y_eval)
         if self.encode_target:
             self.label_encoder_ = LabelEncoder()
-            y_train = self.label_encoder_.fit_transform(y)
+            y_train = self.label_encoder_.fit_transform(y_train)
             if y_eval is not None:
-                y_eval_transformed = self.label_encoder_.transform(y_eval)
+                y_eval_transformed = self.label_encoder_.transform(y_eval_transformed)
             self.classes_ = self.label_encoder_.classes_
         else:
-            self.classes_ = np.asarray(pd.Index(y).unique())
+            self.classes_ = np.asarray(pd.Index(self._flatten_target(y)).unique())
 
         fit_kwargs: dict[str, Any] = {}
         if X_eval is not None and y_eval is not None and self.eval_set_builder is not None:
             X_eval_transformed = self.preprocessor.transform(X_eval)
+            X_eval_transformed = self._wrap_features(X_eval_transformed)
             fit_kwargs.update(self.eval_set_builder(X_eval_transformed, y_eval_transformed))
         self.estimator.fit(X_train, y_train, **fit_kwargs)
         if not self.encode_target:
@@ -57,13 +75,15 @@ class PreprocessedEstimator(BaseEstimator, ClassifierMixin):
 
     def predict(self, X: pd.DataFrame) -> np.ndarray:
         transformed = self.preprocessor.transform(X)
-        preds = np.asarray(self.estimator.predict(transformed))
+        transformed = self._wrap_features(transformed)
+        preds = np.asarray(self.estimator.predict(transformed)).reshape(-1)
         if self.encode_target:
             return self.label_encoder_.inverse_transform(preds.astype(int))
         return preds
 
     def predict_proba(self, X: pd.DataFrame) -> np.ndarray:
         transformed = self.preprocessor.transform(X)
+        transformed = self._wrap_features(transformed)
         return np.asarray(self.estimator.predict_proba(transformed))
 
 

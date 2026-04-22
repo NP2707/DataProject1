@@ -83,21 +83,21 @@ FEATURE_COLS = (
 )
 
 GLOBAL_HOLDOUT_SIZE = 0.20
-PHASE1_SAMPLE_SIZE = 150_000
+PHASE1_SAMPLE_SIZE = 75_000
 PHASE1_VAL_SIZE = 0.20
 PHASE2_VAL_SIZE = 0.20
 
 SHORTLIST_TOP_K = 3
-SHORTLIST_ABS_GAP = 0.005
+SHORTLIST_ABS_GAP = 0.002
 OVERFIT_GAP_THRESHOLD = 0.03
 
-MIN_TRIALS = 20
-PATIENCE = 15
+MIN_TRIALS = 12
+PATIENCE = 10
 DELTA = 0.001
-UCB_INIT_TRIALS = 4
+UCB_INIT_TRIALS = 2
 PHASE2_UCB_INIT_TRIALS = 1
-PHASE1_TRIAL_FRACTION = 0.60
-MAX_TOTAL_TRIALS = 60
+PHASE1_TRIAL_FRACTION = 0.50
+MAX_TOTAL_TRIALS = 24
 MAX_WALL_CLOCK_HOURS = 1.0
 MAX_CONSECUTIVE_FAILS = 5
 TOP_CONFIGS_TO_KEEP = 5
@@ -114,7 +114,7 @@ FAMILY_ORDER = [
 LINEAR_DEFAULTS = {
     "C": 1.0,
     "solver": "lbfgs",
-    "max_iter": 400,
+    "max_iter": 1200,
     "class_weight": "balanced",
 }
 
@@ -127,24 +127,20 @@ LINEAR_SEARCH_SPACE = {
     },
     "solver": {
         "type": "categorical",
-        "choices": ["lbfgs", "newton-cg", "saga"],
-    },
-    "penalty": {
-        "type": "categorical",
-        "choices": ["l2", None],
+        "choices": ["lbfgs", "newton-cg"],
     },
     "max_iter": {
         "type": "int",
-        "low": 250,
-        "high": 600,
+        "low": 800,
+        "high": 1600,
     },
 }
 
 RANDOM_FOREST_DEFAULTS = {
-    "n_estimators": 250,
-    "max_depth": None,
+    "n_estimators": 120,
+    "max_depth": 12,
     "min_samples_split": 2,
-    "min_samples_leaf": 1,
+    "min_samples_leaf": 2,
     "max_features": "sqrt",
     "class_weight": "balanced_subsample",
 }
@@ -152,12 +148,12 @@ RANDOM_FOREST_DEFAULTS = {
 RANDOM_FOREST_SEARCH_SPACE = {
     "n_estimators": {
         "type": "int",
-        "low": 120,
-        "high": 400,
+        "low": 80,
+        "high": 180,
     },
     "max_depth": {
         "type": "categorical",
-        "choices": [None, 6, 10, 14, 18],
+        "choices": [8, 12, 16],
     },
     "min_samples_split": {
         "type": "int",
@@ -166,8 +162,8 @@ RANDOM_FOREST_SEARCH_SPACE = {
     },
     "min_samples_leaf": {
         "type": "int",
-        "low": 1,
-        "high": 8,
+        "low": 2,
+        "high": 10,
     },
     "max_features": {
         "type": "categorical",
@@ -181,7 +177,7 @@ HIST_GBM_DEFAULTS = {
     "max_leaf_nodes": 31,
     "min_samples_leaf": 30,
     "l2_regularization": 0.0,
-    "max_iter": 300,
+    "max_iter": 220,
 }
 HIST_GBM_OPENMP_THREADS = 1
 
@@ -199,7 +195,7 @@ HIST_GBM_SEARCH_SPACE = {
     "max_leaf_nodes": {
         "type": "int",
         "low": 15,
-        "high": 63,
+        "high": 47,
     },
     "min_samples_leaf": {
         "type": "int",
@@ -214,13 +210,13 @@ HIST_GBM_SEARCH_SPACE = {
     },
     "max_iter": {
         "type": "int",
-        "low": 150,
-        "high": 400,
+        "low": 120,
+        "high": 260,
     },
 }
 
 XGBOOST_DEFAULTS = {
-    "n_estimators": 250,
+    "n_estimators": 180,
     "learning_rate": 0.08,
     "max_depth": 6,
     "min_child_weight": 1.0,
@@ -232,8 +228,8 @@ XGBOOST_DEFAULTS = {
 XGBOOST_SEARCH_SPACE = {
     "n_estimators": {
         "type": "int",
-        "low": 120,
-        "high": 400,
+        "low": 100,
+        "high": 220,
     },
     "learning_rate": {
         "type": "float",
@@ -270,7 +266,7 @@ XGBOOST_SEARCH_SPACE = {
 }
 
 LIGHTGBM_DEFAULTS = {
-    "n_estimators": 250,
+    "n_estimators": 180,
     "learning_rate": 0.08,
     "num_leaves": 31,
     "max_depth": -1,
@@ -283,8 +279,8 @@ LIGHTGBM_DEFAULTS = {
 LIGHTGBM_SEARCH_SPACE = {
     "n_estimators": {
         "type": "int",
-        "low": 120,
-        "high": 400,
+        "low": 100,
+        "high": 220,
     },
     "learning_rate": {
         "type": "float",
@@ -319,7 +315,7 @@ LIGHTGBM_SEARCH_SPACE = {
 }
 
 CATBOOST_DEFAULTS = {
-    "iterations": 250,
+    "iterations": 180,
     "learning_rate": 0.08,
     "depth": 6,
     "l2_leaf_reg": 3.0,
@@ -330,8 +326,8 @@ CATBOOST_DEFAULTS = {
 CATBOOST_SEARCH_SPACE = {
     "iterations": {
         "type": "int",
-        "low": 120,
-        "high": 400,
+        "low": 100,
+        "high": 220,
     },
     "learning_rate": {
         "type": "float",
